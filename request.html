@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1D9E75" />
+<title>Request a Print — PrintLab by CapyMaki</title>
+<meta name="description" content="Send a custom 3D print request. Choose material, color, and tell me what you need." />
+<meta property="og:title" content="Request a Print — PrintLab by CapyMaki" />
+<meta property="og:description" content="Send a custom 3D print request. Choose material, color, and tell me what you need." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="bg-noise fixed-layer pointer-events-none"></div>
+<header class="site">
+  <div class="bar">
+    <a href="index.html" class="brand">
+      <span class="logo"><i class="ti ti-printer"></i></span>
+      <span>PrintLab<span class="slash"> / </span><span class="sub">CapyMaki</span></span>
+    </a>
+    <nav class="nav-desktop"><a href="index.html" class="nav-link "><span class="code">00</span>Lab</a><a href="request.html" class="nav-link active"><span class="code">01</span>Request</a><a href="pricing.html" class="nav-link "><span class="code">02</span>Pricing</a><a href="contact.html" class="nav-link "><span class="code">03</span>Contact</a></nav>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('mnav').classList.toggle('open'); this.querySelector('i').classList.toggle('ti-menu-2'); this.querySelector('i').classList.toggle('ti-x');"><i class="ti ti-menu-2"></i></button>
+  </div>
+  <nav id="mnav" class="nav-mobile">
+    <div class="col"><a href="index.html" class=" "><span class="code">00</span>Lab <i class="ti ti-arrow-up-right"></i></a><a href="request.html" class=" active"><span class="code">01</span>Request <i class="ti ti-arrow-up-right"></i></a><a href="pricing.html" class=" "><span class="code">02</span>Pricing <i class="ti ti-arrow-up-right"></i></a><a href="contact.html" class=" "><span class="code">03</span>Contact <i class="ti ti-arrow-up-right"></i></a></div>
+  </nav>
+</header>
+<main class="relative z-10">
+
+<section class="relative overflow-hidden border-b">
+  <div class="bg-grid bg-grid-fade absolute inset-0 pointer-events-none" style="opacity:.5"></div>
+  <div class="container-xs relative section-hero">
+    
+<div class="section-label" >
+  <span class="num">§01</span><span class="rule"></span><span>Build request</span>
+</div>
+    <h1 class="display-page">Tell me what to <span class="italic text-primary">make.</span></h1>
+    <p style="margin-top:1.25rem;max-width:36rem;color:var(--muted-foreground)">Five quick choices and a short description. Goes straight to my inbox — no account, nothing stored on this site.</p>
+  </div>
+</section>
+
+<form id="reqform" class="container-xs" style="padding:3rem 1.25rem 4rem" onsubmit="return submitForm(event)">
+
+  <section class="req-step">
+    <div class="head"><span class="n">§01</span><span class="rule"></span><h2>Category</h2></div>
+    <div class="pill-row" id="cat-row">
+      <button type="button" class="pill active" data-key="3d" data-label="3D Printing" data-icon="ti-printer" data-desc="custom parts, models, accessories" onclick="pickCat(this)"><i class="ti ti-printer"></i><span>3D Printing</span></button><button type="button" class="pill " data-key="knex" data-label="Knex" data-icon="ti-puzzle" data-desc="connectors, custom pieces, adapters" onclick="pickCat(this)"><i class="ti ti-puzzle"></i><span>Knex</span></button><button type="button" class="pill " data-key="lego" data-label="Lego" data-icon="ti-building-castle" data-desc="custom bricks, mounts, holders" onclick="pickCat(this)"><i class="ti ti-building-castle"></i><span>Lego</span></button><button type="button" class="pill " data-key="space" data-label="Space" data-icon="ti-rocket" data-desc="rockets, satellites, scale models" onclick="pickCat(this)"><i class="ti ti-rocket"></i><span>Space</span></button><button type="button" class="pill " data-key="roller" data-label="Roller Coaster" data-icon="ti-building-carousel" data-desc="track, train, small models" onclick="pickCat(this)"><i class="ti ti-building-carousel"></i><span>Roller Coaster</span></button>
+    </div>
+    <div class="cat-hint" id="cat-hint">
+      <i class="ti ti-printer" id="cat-hint-icon"></i>
+      <span><strong id="cat-hint-label">3D Printing</strong> — <span id="cat-hint-desc">custom parts, models, accessories</span></span>
+    </div>
+  </section>
+
+  <section class="req-step">
+    <div class="head"><span class="n">§02</span><span class="rule"></span><h2>Material</h2></div>
+    <div class="mat-grid">
+      <button type="button" class="mat active" data-id="PLA" onclick="pickMat(this)"><div class="row"><span class="name">PLA</span><span class="check"><i class="ti ti-check"></i></span></div><div class="d">Standard · most colors available</div></button><button type="button" class="mat " data-id="PETG" onclick="pickMat(this)"><div class="row"><span class="name">PETG</span><span class="check"><i class="ti ti-check"></i></span></div><div class="d">Stronger · heat-resistant (not in stock — extra costs)</div></button><button type="button" class="mat " data-id="TPU" onclick="pickMat(this)"><div class="row"><span class="name">TPU</span><span class="check"><i class="ti ti-check"></i></span></div><div class="d">Flexible · rubber-like (not in stock — extra costs)</div></button><button type="button" class="mat " data-id="Not sure" onclick="pickMat(this)"><div class="row"><span class="name">Not sure</span><span class="check"><i class="ti ti-check"></i></span></div><div class="d">I'll recommend one for you</div></button>
+    </div>
+  </section>
+
+  <section class="req-step">
+    <div class="head"><span class="n">§03</span><span class="rule"></span><h2>Color</h2></div>
+    <div class="color-row" id="color-row">
+      <button type="button" class="swatch active" data-name="White" data-hex="#f5f4f0" style="background:#f5f4f0" aria-label="White" title="White" onclick="pickColor(this)"></button><button type="button" class="swatch " data-name="Black" data-hex="#15140f" style="background:#15140f" aria-label="Black" title="Black" onclick="pickColor(this)"></button><button type="button" class="swatch " data-name="Silver" data-hex="#8a8a86" style="background:#8a8a86" aria-label="Silver" title="Silver" onclick="pickColor(this)"></button><button type="button" class="swatch " data-name="Red" data-hex="#d83030" style="background:#d83030" aria-label="Red" title="Red" onclick="pickColor(this)"></button><button type="button" class="swatch " data-name="Orange" data-hex="#ef7a2a" style="background:#ef7a2a" aria-label="Orange" title="Orange" onclick="pickColor(this)"></button><button type="button" class="swatch " data-name="Wood" data-hex="#9D6C3C" style="background:#9D6C3C" aria-label="Wood" title="Wood" onclick="pickColor(this)"></button><button type="button" class="swatch " data-name="Green" data-hex="#1D9E75" style="background:#1D9E75" aria-label="Green" title="Green" onclick="pickColor(this)"></button><button type="button" class="swatch " data-name="Blue" data-hex="#2a6cef" style="background:#2a6cef" aria-label="Blue" title="Blue" onclick="pickColor(this)"></button><button type="button" class="swatch " data-name="Pink" data-hex="#FFC0CB" style="background:#FFC0CB" aria-label="Pink" title="Pink" onclick="pickColor(this)"></button>
+    </div>
+    <div class="color-meta"><span class="chip" id="color-chip" style="background:#f5f4f0"></span>→ <span id="color-name">White</span><span style="color:color-mix(in oklab,var(--subtle) 60%,transparent)">· other colors may be available on request</span></div>
+  </section>
+
+  <section class="req-step">
+    <div class="head"><span class="n">§04</span><span class="rule"></span><h2>Details</h2></div>
+    <div class="field-stack">
+      <label>
+        <span class="field-label">What do you want printed? <span class="req">*</span></span>
+        <input type="text" id="item" class="field-input" placeholder="e.g. a phone stand for my desk" />
+      </label>
+      <label>
+        <span class="field-label">Description & dimensions</span>
+        <textarea id="desc" class="field-textarea" placeholder="Approx size, reference links, special requests…"></textarea>
+      </label>
+      <label>
+        <span class="field-label">Your name and/or email</span>
+        <input type="text" id="name" class="field-input" placeholder="So I can reach you back" />
+      </label>
+    </div>
+  </section>
+
+  <div class="submit-wrap">
+    <button type="submit" id="submitbtn" class="submit-btn">
+      <span id="submit-default"><i class="ti ti-send"></i> Send request <i class="ti ti-arrow-right" style="margin-left:.25rem"></i></span>
+      <span id="submit-loading" style="display:none"><i class="ti ti-loader-2 spin"></i> Sending…</span>
+    </button>
+    <div class="submit-foot"><i class="ti ti-lock"></i> Sent directly via email — nothing is stored on this site.</div>
+  </div>
+</form>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const FORMSPREE_URL = "https://formspree.io/f/xvzygyoq";
+let state = { cat: {"key":"3d","label":"3D Printing","icon":"ti-printer","desc":"custom parts, models, accessories"}, material: "PLA", color: "White" };
+
+function pickCat(btn) {
+  document.querySelectorAll("#cat-row .pill").forEach(p => p.classList.remove("active"));
+  btn.classList.add("active");
+  state.cat = { key: btn.dataset.key, label: btn.dataset.label, icon: btn.dataset.icon, desc: btn.dataset.desc };
+  document.getElementById("cat-hint-icon").className = "ti " + btn.dataset.icon;
+  document.getElementById("cat-hint-label").textContent = btn.dataset.label;
+  document.getElementById("cat-hint-desc").textContent = btn.dataset.desc;
+}
+function pickMat(btn) {
+  document.querySelectorAll(".mat").forEach(p => p.classList.remove("active"));
+  btn.classList.add("active");
+  state.material = btn.dataset.id;
+}
+function pickColor(btn) {
+  document.querySelectorAll(".swatch").forEach(p => p.classList.remove("active"));
+  btn.classList.add("active");
+  state.color = btn.dataset.name;
+  document.getElementById("color-chip").style.background = btn.dataset.hex;
+  document.getElementById("color-name").textContent = btn.dataset.name;
+}
+function toast(msg, kind) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = "toast show " + (kind || "");
+  setTimeout(() => t.classList.remove("show"), 3000);
+}
+async function submitForm(e) {
+  e.preventDefault();
+  const item = document.getElementById("item");
+  const desc = document.getElementById("desc");
+  const name = document.getElementById("name");
+  if (!item.value.trim()) {
+    item.classList.add("error"); item.focus();
+    toast("Please describe what you want printed.", "error");
+    setTimeout(() => item.classList.remove("error"), 1500);
+    return false;
+  }
+  const btn = document.getElementById("submitbtn");
+  btn.disabled = true;
+  document.getElementById("submit-default").style.display = "none";
+  document.getElementById("submit-loading").style.display = "inline-flex";
+  try {
+    const res = await fetch(FORMSPREE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        name: name.value.trim() || "(not specified)",
+        category: state.cat.label,
+        item: item.value.trim(),
+        material: state.material,
+        color: state.color,
+        description: desc.value.trim() || "(no extra details)",
+      }),
+    });
+    if (res.ok) {
+      toast("Request sent — I'll reply by email.", "success");
+      item.value = ""; desc.value = ""; name.value = "";
+    } else toast("Something went wrong — try again.", "error");
+  } catch {
+    toast("Network error — try again.", "error");
+  } finally {
+    btn.disabled = false;
+    document.getElementById("submit-default").style.display = "inline-flex";
+    document.getElementById("submit-loading").style.display = "none";
+  }
+  return false;
+}
+</script>
+</main>
+<footer class="site">
+  <div class="bg-grid bg-grid-fade grid-bg"></div>
+  <div class="inner">
+    <div class="footer-cols">
+      <div>
+        <div class="wm">PrintLab<span class="dot-p">.</span></div>
+        <p class="blurb">Custom 3D prints made by hand in the lab. One printer, full attention, no nonsense.</p>
+      </div>
+      <div>
+        <div class="label">Navigate</div>
+        <ul>
+          <li><a href="index.html">Lab</a></li>
+          <li><a href="request.html">Request</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="label">Lab Status</div>
+        <div class="status"><span class="dot"></span> Printer online</div>
+        <div class="printer">FLASHFORGE ADVENTURER 5M</div>
+      </div>
+    </div>
+    <div class="filament"></div>
+    <div class="foot-bottom">
+      <div>© 2026 PRINTLAB · BUILD 0001</div>
+      <div>CAPYMAKI · NL</div>
+    </div>
+  </div>
+</footer>
+</body></html>
